@@ -73,4 +73,29 @@ foreach (var age in ageBetween20and30)
 var firstPerson = persons2.First();
 Console.WriteLine(firstPerson.FirstName);
 
+foreach(var person in persons2.Skip(1).Take(2))
+{
+    Console.WriteLine(person.FirstName);
+}
+
+var employees = new List<Employee>
+{
+    new Employee("John", "Miller", "Development"),
+    new Employee("Jack", "Stevens", "Sales"),
+    new Employee("Maria", "McAllister", "Sales"),
+};
+
+var personsByDepartment = employees.GroupBy(person => person.Department);
+
+foreach(var department in personsByDepartment)
+{
+    Console.WriteLine($"Department: {department.Key}");
+
+    foreach(var employee in department) {
+        Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+    }
+}
+
 record Person (string FirstName, string LastName, int Age);
+
+record Employee(string FirstName, string LastName, string Department);

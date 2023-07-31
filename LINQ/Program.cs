@@ -85,6 +85,37 @@ var employees = new List<Employee>
     new Employee("Maria", "McAllister", "Sales"),
 };
 
+var selectedEmployees = from employee in employees 
+                        where employee.FirstName.StartsWith("J") 
+                        orderby employee.LastName
+                        select employee;
+
+Console.WriteLine("\n");
+
+foreach(var employee in selectedEmployees)
+{
+    Console.Write(employee.FirstName);
+}
+
+Console.WriteLine("\n");
+
+var employeesByDepartment = from employee in employees
+                            group employee by employee.Department into groupedEmployees
+                            orderby groupedEmployees.Key
+                            select groupedEmployees;
+
+foreach (var department in employeesByDepartment)
+{
+    Console.WriteLine($"Department: {department.Key}");
+
+    foreach (var employee in department)
+    {
+        Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+    }
+}
+
+Console.WriteLine("\n");
+
 var personsByDepartment = employees.GroupBy(person => person.Department);
 
 foreach(var department in personsByDepartment)
